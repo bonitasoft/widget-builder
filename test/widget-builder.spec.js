@@ -16,8 +16,8 @@ let resources = {
   directive: path.join(__dirname , '/pbWidget/pbWidget.js')
 };
 
-let controller = jsesc(fs.readFileSync(resources.controller));
-let template = jsesc(fs.readFileSync(resources.template));
+let controller = fs.readFileSync(resources.controller).toString();
+let template = fs.readFileSync(resources.template).toString();
 let directive = `(function () {
   try {
     return angular.module('bonitasoft.ui.widgets');
@@ -80,7 +80,6 @@ describe('buildWidget', () => {
   });
 
   it('should preserve base file when listing assets', (done) => {
-
     vfs.src(__dirname + '/pbWidget/*.json')
       .pipe(buildWidget())
       .pipe(through2.obj(function (file, enc, callback) {
@@ -92,7 +91,7 @@ describe('buildWidget', () => {
       }))
       .pipe(assertThat({
         when: (file) => file.path.indexOf('assets') > 0,
-        then: (file) => file.base.should.equal(path.join(__dirname, 'pbWidget/')),
+        then: (file) =>  file.base.should.equal(path.join(__dirname, 'pbWidget')),
         done
       }));
   });

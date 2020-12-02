@@ -45,11 +45,10 @@ describe('Json schema converter', () => {
 
     stream.on('data', (file) => {
       let schema = toObject(file);
-
-      expect(schema).to.have.deep.property('properties.disabled.type', 'boolean');
-      expect(schema).to.have.deep.property('properties.label.type', 'string');
-      expect(schema).to.have.deep.property('properties.text.type', 'string');
-      expect(schema).to.have.deep.property('properties.minLength.type', 'number');
+      expect(schema).to.have.nested.property('properties.disabled.type', 'boolean');
+      expect(schema).to.have.nested.property('properties.label.type', 'string');
+      expect(schema).to.have.nested.property('properties.text.type', 'string');
+      expect(schema).to.have.nested.property('properties.minLength.type', 'number');
       done();
     });
   });
@@ -61,9 +60,9 @@ describe('Json schema converter', () => {
     stream.on('data', (file) => {
       let schema = toObject(file);
 
-      expect(schema).not.to.have.deep.property('properties.label.default');
-      expect(schema).to.have.deep.property('properties.disabled.default', false);
-      expect(schema).to.have.deep.property('properties.text.default', 'Default value');
+      expect(schema).not.to.have.nested.property('properties.label.default');
+      expect(schema).to.have.nested.property('properties.disabled.default', false);
+      expect(schema).to.have.nested.property('properties.text.default', 'Default value');
       done();
     });
   });
@@ -75,7 +74,7 @@ describe('Json schema converter', () => {
     stream.on('data', (file) => {
       let schema = toObject(file);
 
-      expect(schema).to.have.deep.property('properties.collectionPosition')
+      expect(schema).to.have.nested.property('properties.collectionPosition')
         .that.is.eql({enum: ['First', 'Item', 'Last'], default: 'Last'});
       done();
     });
@@ -88,7 +87,7 @@ describe('Json schema converter', () => {
     stream.on('data', (file) => {
       let schema = toObject(file);
 
-      expect(schema).to.have.deep.property('properties.chartType')
+      expect(schema).to.have.nested.property('properties.chartType')
         .that.is.eql({enum: ['Doughnut', 'Pie', 'PolarArea', 'Bar', 'Line', 'Radar'], default: 'Doughnut'});
       done();
     });
