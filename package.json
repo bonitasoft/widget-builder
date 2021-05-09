@@ -12,7 +12,7 @@
   "author": "",
   "license": "GPL-2.0",
   "dependencies": {
-    "handlebars": "4.7.6",
+    "handlebars": "4.7.7",
     "jsesc": "3.0.2",
     "readable-stream": "^3.6.0",
     "through2": "4.0.2",
